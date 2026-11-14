@@ -1,7 +1,43 @@
 /* ============================================================
  * 全球最富有的十二个人 TOP12
- * 数据 + 渲染 + 3D 人物插槽预留
+ * 数据 + 渲染 + 中英文切换 + 3D 人物插槽预留
  * ============================================================ */
+
+/* ---------- i18n 字典 ---------- */
+const I18N = {
+  zh: {
+    title: "全球最富有的十二个人",
+    subtitle: "估算净资产",
+    unit: "单位：亿美元",
+    hint3d: "预留 3D 人物插槽，可在此切换",
+    btn3d_off: "3D 人物效果：关闭",
+    btn3d_on: "3D 人物效果：开启",
+    age_unit: "岁",
+    country_us: "美国",
+    networth_unit: "亿美元",
+    footer: "数据截至 2026 年 10 月 13 日（Bloomberg Billionaires Index），净资产每日波动。",
+    three_badge: "3D",
+  },
+  en: {
+    title: "The 12 Richest People in the World",
+    subtitle: "Estimated Net Worth",
+    unit: "Unit: USD 100M",
+    hint3d: "3D character slot reserved — toggle here",
+    btn3d_off: "3D Effect: OFF",
+    btn3d_on: "3D Effect: ON",
+    age_unit: "yrs",
+    country_us: "United States",
+    networth_unit: "B USD",
+    footer: "As of Oct 13, 2026 (Bloomberg Billionaires Index). Net worth fluctuates daily.",
+    three_badge: "3D",
+  },
+};
+
+let lang = "zh";
+
+function t(key) {
+  return I18N[lang][key] || key;
+}
 
 const PEOPLE = [
   {
@@ -137,33 +173,72 @@ function formatNumber(n) {
   return n.toLocaleString("en-US");
 }
 
+function countryLabel(cn) {
+  // 当前所有人物均为美国，按语言返回；后续可扩展为映射表
+  return t("country_us");
+}
+
+function networthDisplay(v) {
+  // zh: 9660 亿美元；en: 换算为十亿美元 966 B USD
+  if (lang === "en") {
+    return `${formatNumber(Math.round(v / 10))}<span class="unit"> ${t("networth_unit")}</span>`;
+  }
+  return `${formatNumber(v)}<span class="unit"> ${t("networth_unit")}</span>`;
+}
+
 function renderCards() {
   const grid = document.getElementById("cardGrid");
   grid.innerHTML = PEOPLE.map((p) => {
     const companiesHtml = p.companies
-      .map(
-        (c) =>
-          `<span class="company ${c.cls}">${c.name}</span>`
-      )
+      .map((c) => `<span class="company ${c.cls}">${c.name}</span>`)
       .join("");
+
+    const primaryName = lang === "zh" ? p.nameCn : p.nameEn;
+    const secondaryName = lang === "zh" ? p.nameEn : p.nameCn;
 
     return `
       <article class="card" data-rank="${p.rank}">
         <div class="card-rank">${p.rank}</div>
         <div class="card-portrait" data-3d-slot data-person="${p.nameEn.replace(/\s+/g, "-").toLowerCase()}">
-          <img class="portrait-img" src="${p.photo}" alt="${p.nameCn}" loading="lazy" />
-          <span class="three-badge">3D</span>
+          <img class="portrait-img" src="${p.photo}" alt="${primaryName}" loading="lazy" />
+          <span class="three-badge">${t("three_badge")}</span>
         </div>
         <div class="card-body">
-          <div class="name-cn">${p.nameCn}</div>
-          <div class="name-en">${p.nameEn}</div>
-          <div class="meta">${p.age}岁 ｜ ${p.country}</div>
-          <div class="networth">${formatNumber(p.networth)}<span class="unit"> 亿美元</span></div>
+          <div class="name-cn">${primaryName}</div>
+          <div class="name-en">${secondaryName}</div>
+          <div class="meta">${p.age}${t("age_unit")} ｜ ${countryLabel(p.country)}</div>
+          <div class="networth">${networthDisplay(p.networth)}</div>
           <div class="companies">${companiesHtml}</div>
         </div>
       </article>
     `;
   }).join("");
+}
+
+/* ---------- 应用静态文案翻译 ---------- */
+function applyStaticI18n() {
+  document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
+  document.title = `${t("title")} TOP12`;
+  document.querySelectorAll("[data-i18n]").forEach((el) => {
+    const key = el.getAttribute("data-i18n");
+    el.textContent = t(key);
+  });
+}
+
+function setLanguage(next) {
+  if (next === lang) return;
+  lang = next;
+  document.querySelectorAll(".lang-btn").forEach((b) => {
+    b.classList.toggle("active", b.dataset.lang === lang);
+  });
+  applyStaticI18n();
+  renderCards();
+  // 若 3D 模式开启，重建画布以更新 badge 文案
+  if (mode3D) {
+    destroy3DCharacters();
+    init3DCharacters();
+  }
+  update3DButton();
 }
 
 /* ============================================================
@@ -262,21 +337,32 @@ function drawPlaceholder3D(canvas, label) {
   };
 }
 
+function update3DButton() {
+  const btn = document.getElementById("toggle3d");
+  const label = mode3D ? t("btn3d_on") : t("btn3d_off");
+  btn.innerHTML = `<span class="dot"></span> ${label}`;
+}
+
 function set3DMode(on) {
   mode3D = on;
   document.body.classList.toggle("mode-3d", on);
   const btn = document.getElementById("toggle3d");
   btn.classList.toggle("active", on);
-  btn.innerHTML = `<span class="dot"></span> 3D 人物效果：${on ? "开启" : "关闭"}`;
+  update3DButton();
   if (on) init3DCharacters();
   else destroy3DCharacters();
 }
 
 /* ---------- boot ---------- */
 document.addEventListener("DOMContentLoaded", () => {
+  applyStaticI18n();
   renderCards();
 
   document.getElementById("toggle3d").addEventListener("click", () => {
     set3DMode(!mode3D);
+  });
+
+  document.querySelectorAll(".lang-btn").forEach((b) => {
+    b.addEventListener("click", () => setLanguage(b.dataset.lang));
   });
 });

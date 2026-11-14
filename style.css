@@ -102,6 +102,42 @@ body {
   color: #999;
 }
 
+/* ---------- Language switch ---------- */
+.lang-switch {
+  margin-left: auto;
+  display: inline-flex;
+  border: 1px solid #ddd;
+  border-radius: 999px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.lang-btn {
+  padding: 8px 16px;
+  border: none;
+  background: transparent;
+  color: #666;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.lang-btn:hover {
+  color: var(--accent);
+}
+
+.lang-btn.active {
+  background: var(--accent);
+  color: #fff;
+}
+
+@media (max-width: 560px) {
+  .lang-switch {
+    margin-left: 0;
+  }
+}
+
 /* ---------- Card grid ---------- */
 .card-grid {
   max-width: 1180px;

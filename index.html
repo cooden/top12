@@ -9,15 +9,26 @@
 <body>
   <header class="page-header">
     <h1 class="page-title">
-      全球最富有的十二个人 <span class="title-accent">TOP12</span>
+      <span data-i18n="title">全球最富有的十二个人</span>
+      <span class="title-accent">TOP12</span>
     </h1>
-    <p class="page-subtitle">估算净资产 <span class="divider">|</span> 单位：亿美元</p>
+    <p class="page-subtitle">
+      <span data-i18n="subtitle">估算净资产</span>
+      <span class="divider">|</span>
+      <span data-i18n="unit">单位：亿美元</span>
+    </p>
 
     <div class="toolbar">
       <button id="toggle3d" class="btn-3d" type="button">
-        <span class="dot"></span> 3D 人物效果：关闭
+        <span class="dot"></span>
+        <span data-i18n="btn3d_off">3D 人物效果：关闭</span>
       </button>
-      <span class="hint">预留 3D 人物插槽，可在此切换</span>
+      <span class="hint" data-i18n="hint3d">预留 3D 人物插槽，可在此切换</span>
+
+      <div class="lang-switch" role="group" aria-label="language switch">
+        <button id="langZh" class="lang-btn active" type="button" data-lang="zh">中</button>
+        <button id="langEn" class="lang-btn" type="button" data-lang="en">EN</button>
+      </div>
     </div>
   </header>
 
@@ -27,7 +38,7 @@
     </section>
   </main>
 
-  <footer class="page-footer">
+  <footer class="page-footer" data-i18n="footer">
     数据截至 2026 年 10 月 13 日（Bloomberg Billionaires Index），净资产每日波动。
   </footer>
 
