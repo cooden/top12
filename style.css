@@ -1,0 +1,289 @@
+:root {
+  --bg: #f4f4f2;
+  --card-bg: #ffffff;
+  --card-border: #e6e6e6;
+  --text: #222;
+  --muted: #666;
+  --accent: #e60012;
+  --rank-bg: #e60012;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 4px 12px rgba(0, 0, 0, 0.04);
+  --radius: 10px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page-header {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 28px 20px 8px;
+}
+
+.page-title {
+  font-size: clamp(28px, 4.2vw, 46px);
+  font-weight: 800;
+  letter-spacing: 1px;
+  line-height: 1.1;
+}
+
+.title-accent {
+  color: var(--accent);
+}
+
+.page-subtitle {
+  margin-top: 10px;
+  font-size: 15px;
+  color: var(--muted);
+}
+
+.divider {
+  margin: 0 6px;
+  color: #bbb;
+}
+
+.toolbar {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn-3d {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border: 1px solid #ddd;
+  border-radius: 999px;
+  background: #fff;
+  color: #333;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-3d:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.btn-3d.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+.btn-3d .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #bbb;
+  display: inline-block;
+}
+
+.btn-3d.active .dot {
+  background: #fff;
+}
+
+.hint {
+  font-size: 12px;
+  color: #999;
+}
+
+/* ---------- Card grid ---------- */
+.card-grid {
+  max-width: 1180px;
+  margin: 24px auto;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+@media (max-width: 900px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- Card ---------- */
+.card {
+  position: relative;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card-rank {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  width: 34px;
+  height: 34px;
+  background: var(--rank-bg);
+  color: #fff;
+  font-size: 18px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom-right-radius: 10px;
+}
+
+/* ---------- Portrait (with 3D slot) ---------- */
+.card-portrait {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: linear-gradient(135deg, #cfd8dc, #90a4ae);
+  overflow: hidden;
+  /* 3D slot: when .mode-3d is on, the <canvas> is appended here */
+}
+
+.portrait-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: opacity 0.3s ease;
+}
+
+/* 3D placeholder canvas overlay */
+.card-portrait canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.mode-3d .portrait-img {
+  opacity: 0.15;
+}
+
+.three-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  display: none;
+  z-index: 2;
+}
+
+.mode-3d .three-badge {
+  display: block;
+}
+
+/* ---------- Card body ---------- */
+.card-body {
+  padding: 12px 14px 16px;
+}
+
+.name-cn {
+  font-size: 17px;
+  font-weight: 700;
+  color: #111;
+}
+
+.name-en {
+  font-size: 13px;
+  color: #888;
+  margin-top: 1px;
+}
+
+.meta {
+  margin-top: 6px;
+  font-size: 12.5px;
+  color: #555;
+}
+
+.networth {
+  margin-top: 8px;
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--accent);
+  line-height: 1.1;
+}
+
+.networth .unit {
+  font-size: 14px;
+  font-weight: 600;
+  margin-left: 2px;
+}
+
+.companies {
+  margin-top: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  align-items: center;
+}
+
+.company {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #333;
+}
+
+.company .logo {
+  height: 16px;
+  width: auto;
+  max-width: 90px;
+  object-fit: contain;
+}
+
+/* logo text-only fallback */
+.company.amazon { color: #ff9900; }
+.company.blueorigin { color: #2b2b2b; }
+.company.google { color: #4285f4; }
+.company.meta { color: #0668e1; }
+.company.dell { color: #007db8; }
+.company.oracle { color: #c74634; }
+.company.microsoft { color: #00a4ef; }
+.company.nvidia { color: #76b900; }
+.company.berkshire { color: #003366; }
+.company.walmart { color: #0071ce; }
+.company.tesla { color: #cc0000; }
+.company.spacex { color: #000; }
+
+.page-footer {
+  max-width: 1180px;
+  margin: 10px auto 40px;
+  padding: 0 20px;
+  font-size: 12px;
+  color: #999;
+  text-align: center;
+}
