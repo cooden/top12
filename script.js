@@ -39,6 +39,9 @@ function t(key) {
   return I18N[lang][key] || key;
 }
 
+/* 人物数据
+ * cutout 字段请替换为「抠图后的透明背景 PNG」（全身/半身人物）。
+ * 普通模式显示抠图人物；3D 模式不显示图片，改为加载 3D 模型。 */
 const PEOPLE = [
   {
     rank: 1,
@@ -47,7 +50,7 @@ const PEOPLE = [
     age: 55,
     country: "美国",
     networth: 9660,
-    photo: "https://i.pravatar.cc/400?img=12",
+    cutout: "cutouts/elon-musk.png",
     companies: [
       { name: "Tesla", cls: "tesla" },
       { name: "SpaceX", cls: "spacex" },
@@ -60,7 +63,7 @@ const PEOPLE = [
     age: 62,
     country: "美国",
     networth: 3690,
-    photo: "https://i.pravatar.cc/400?img=15",
+    cutout: "cutouts/jeff-bezos.png",
     companies: [
       { name: "amazon", cls: "amazon" },
       { name: "Blue Origin", cls: "blueorigin" },
@@ -73,7 +76,7 @@ const PEOPLE = [
     age: 53,
     country: "美国",
     networth: 3020,
-    photo: "https://i.pravatar.cc/400?img=33",
+    cutout: "cutouts/larry-page.png",
     companies: [{ name: "Google", cls: "google" }],
   },
   {
@@ -83,7 +86,7 @@ const PEOPLE = [
     age: 53,
     country: "美国",
     networth: 2810,
-    photo: "https://i.pravatar.cc/400?img=51",
+    cutout: "cutouts/sergey-brin.png",
     companies: [{ name: "Google", cls: "google" }],
   },
   {
@@ -93,7 +96,7 @@ const PEOPLE = [
     age: 42,
     country: "美国",
     networth: 2690,
-    photo: "https://i.pravatar.cc/400?img=8",
+    cutout: "cutouts/mark-zuckerberg.png",
     companies: [{ name: "Meta", cls: "meta" }],
   },
   {
@@ -103,7 +106,7 @@ const PEOPLE = [
     age: 61,
     country: "美国",
     networth: 2640,
-    photo: "https://i.pravatar.cc/400?img=68",
+    cutout: "cutouts/michael-dell.png",
     companies: [{ name: "DELL Technologies", cls: "dell" }],
   },
   {
@@ -113,7 +116,7 @@ const PEOPLE = [
     age: 82,
     country: "美国",
     networth: 1940,
-    photo: "https://i.pravatar.cc/400?img=59",
+    cutout: "cutouts/larry-ellison.png",
     companies: [{ name: "ORACLE", cls: "oracle" }],
   },
   {
@@ -123,7 +126,7 @@ const PEOPLE = [
     age: 70,
     country: "美国",
     networth: 1900,
-    photo: "https://i.pravatar.cc/400?img=60",
+    cutout: "cutouts/steve-ballmer.png",
     companies: [{ name: "Microsoft", cls: "microsoft" }],
   },
   {
@@ -133,7 +136,7 @@ const PEOPLE = [
     age: 63,
     country: "美国",
     networth: 1890,
-    photo: "https://i.pravatar.cc/400?img=53",
+    cutout: "cutouts/jensen-huang.png",
     companies: [{ name: "NVIDIA", cls: "nvidia" }],
   },
   {
@@ -143,7 +146,7 @@ const PEOPLE = [
     age: 96,
     country: "美国",
     networth: 1480,
-    photo: "https://i.pravatar.cc/400?img=52",
+    cutout: "cutouts/warren-buffett.png",
     companies: [{ name: "Berkshire Hathaway", cls: "berkshire" }],
   },
   {
@@ -153,7 +156,7 @@ const PEOPLE = [
     age: 78,
     country: "美国",
     networth: 1420,
-    photo: "https://i.pravatar.cc/400?img=65",
+    cutout: "cutouts/jim-walton.png",
     companies: [{ name: "Walmart", cls: "walmart" }],
   },
   {
@@ -163,7 +166,7 @@ const PEOPLE = [
     age: 81,
     country: "美国",
     networth: 1390,
-    photo: "https://i.pravatar.cc/400?img=58",
+    cutout: "cutouts/rob-walton.png",
     companies: [{ name: "Walmart", cls: "walmart" }],
   },
 ];
@@ -200,7 +203,7 @@ function renderCards() {
       <article class="card" data-rank="${p.rank}">
         <div class="card-rank">${p.rank}</div>
         <div class="card-portrait" data-3d-slot data-person="${p.nameEn.replace(/\s+/g, "-").toLowerCase()}">
-          <img class="portrait-img" src="${p.photo}" alt="${primaryName}" loading="lazy" />
+          <img class="portrait-img" src="${p.cutout}" alt="${primaryName}" loading="lazy" />
           <span class="three-badge">${t("three_badge")}</span>
         </div>
         <div class="card-body">
