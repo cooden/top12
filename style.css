@@ -25,6 +25,7 @@ body {
 }
 
 .page-header {
+  position: relative;
   max-width: 1180px;
   margin: 0 auto;
   padding: 28px 20px 8px;
@@ -52,12 +53,13 @@ body {
   color: #bbb;
 }
 
-.toolbar {
-  margin-top: 16px;
+/* ---------- Bottom 3D toggle ---------- */
+.bottom-bar {
+  max-width: 1180px;
+  margin: 20px auto 0;
+  padding: 0 20px;
   display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .btn-3d {
@@ -102,14 +104,17 @@ body {
   color: #999;
 }
 
-/* ---------- Language switch ---------- */
+/* ---------- Language switch (top-right corner) ---------- */
 .lang-switch {
-  margin-left: auto;
+  position: absolute;
+  top: 28px;
+  right: 20px;
   display: inline-flex;
   border: 1px solid #ddd;
   border-radius: 999px;
   overflow: hidden;
   background: #fff;
+  z-index: 10;
 }
 
 .lang-btn {
@@ -134,7 +139,8 @@ body {
 
 @media (max-width: 560px) {
   .lang-switch {
-    margin-left: 0;
+    top: 12px;
+    right: 12px;
   }
 }
 
