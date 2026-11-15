@@ -206,7 +206,9 @@ body {
 .portrait-img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  /* 抠图：透明背景 PNG，人物贴底部居中显示 */
+  object-fit: contain;
+  object-position: center bottom;
   display: block;
   transition: opacity 0.3s ease;
 }
@@ -219,8 +221,9 @@ body {
   height: 100%;
 }
 
+/* 3D 模式不显示抠图图片，改用 3D 模型 */
 .mode-3d .portrait-img {
-  opacity: 0.15;
+  display: none;
 }
 
 .three-badge {
