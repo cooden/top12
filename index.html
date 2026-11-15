@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>全球最富有的十二个人 TOP12</title>
-  <link rel="stylesheet" href="style.css?v=4" />
+  <link rel="stylesheet" href="style.css?v=5" />
   <script>
     var _hmt = _hmt || [];
     (function() {
@@ -17,6 +17,11 @@
 </head>
 <body>
   <header class="page-header">
+    <div class="lang-switch" role="group" aria-label="language switch">
+      <button id="langZh" class="lang-btn active" type="button" data-lang="zh">中</button>
+      <button id="langEn" class="lang-btn" type="button" data-lang="en">EN</button>
+    </div>
+
     <h1 class="page-title">
       <span data-i18n="title">全球最富有的十二个人</span>
       <span class="title-accent">TOP12</span>
@@ -26,19 +31,6 @@
       <span class="divider">|</span>
       <span data-i18n="unit">单位：亿美元</span>
     </p>
-
-    <div class="toolbar">
-      <button id="toggle3d" class="btn-3d" type="button">
-        <span class="dot"></span>
-        <span data-i18n="btn3d_off">3D 人物效果：关闭</span>
-      </button>
-      <span class="hint" data-i18n="hint3d">预留 3D 人物插槽，可在此切换</span>
-
-      <div class="lang-switch" role="group" aria-label="language switch">
-        <button id="langZh" class="lang-btn active" type="button" data-lang="zh">中</button>
-        <button id="langEn" class="lang-btn" type="button" data-lang="en">EN</button>
-      </div>
-    </div>
   </header>
 
   <main>
@@ -47,10 +39,17 @@
     </section>
   </main>
 
+  <div class="bottom-bar">
+    <button id="toggle3d" class="btn-3d" type="button">
+      <span class="dot"></span>
+      <span data-i18n="btn3d_off">3D 人物效果：关闭</span>
+    </button>
+  </div>
+
   <footer class="page-footer" data-i18n="footer">
     数据截至 2026 年 10 月 13 日（Bloomberg Billionaires Index），净资产每日波动。
   </footer>
 
-  <script src="script.js?v=4"></script>
+  <script src="script.js?v=5"></script>
 </body>
 </html>
